@@ -6,6 +6,12 @@ const bodyParser = require("body-parser");
 const cors = require("cors"); //used for connect middleware
 const fs = require("fs");
 const path = require("path");
+var admin = require("firebase-admin");
+var serviceAccount = require("../serviceAccountKey.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://crud-b5854.firebaseio.com"
+});
 //var admin = require("firebase-admin");
 //var routes = require("./routes/routes.js");
 // VIEW ENGINE //

@@ -5,7 +5,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import App from './components/app.js';
-import Login from './login_SignUp/loginUser.js';
+import LoginUser from './login_SignUp/loginUser.js';
+import LoginAdmin from './login_SignUp/loginAdmin.js';
 import SignUp from './login_SignUp/signUpUser.js';
 import {
 	BrowserRouter,
@@ -28,7 +29,8 @@ const options = {
 ReactDOM.render(<AlertProvider template={AlertTemplate} {...options}>
 			<BrowserRouter>
 			  <Switch>
-			    <Route exact path="/" component={Login} />
+			    <Route exact path="/" component={LoginUser} />
+					<Route exact path="/admin" component={LoginAdmin} />
 			    <Route exact path="/home" component={App} />
 			  </Switch>
 			</BrowserRouter>

@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack && node server/server.js",
-    "build": "webpack --mode production"
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -25,8 +24,11 @@
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "file-loader": "^4.2.0",
+    "firebase-admin": "^8.5.0",
+    "generate-password": "^1.4.2",
     "html-loader": "^0.5.5",
     "mdbreact": "^4.20.0",
+    "password-hash": "^1.2.2",
     "react": "^16.9.0",
     "react-alert": "^5.5.0",
     "react-alert-template-basic": "^1.0.0",

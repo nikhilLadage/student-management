@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, Switch, HashRouter } from 'react-router-dom';
-import RecordsList from './userList/recordsList';
-import Profile from './profile/profile';
-import Settings from './settings/settings';
+import StudentSection from './student/student';
+import TeacherSection from './teacher/teacher';
+import CoursesSection from './course/course';
 import Header from './common/header';
 import SideBar from './common/sideBar';
 import Footer from './common/footer';
+import ModalBox from './common/commonModalPopUp';
 import '../../client/index.css';
 // import ProfilePage from './pages/ProfilePage';
 // import TablesPage from './pages/TablesPage';
@@ -16,8 +17,26 @@ class App extends React.Component {
   constructor(props){
       super(props);
       this.state = {
-          "userAccessToken": localStorage.getItem("userAccessToken")
+          "userAccessToken": localStorage.getItem("userAccessToken"),
+          parentModalBoxData: "",
+          toggleModalBoxValue: false
       };
+      this.setToggleModalBoxValue = this.setToggleModalBoxValue.bind(this);
+      this.setParentModalBoxDataProps = this.setParentModalBoxDataProps.bind(this);
+  }
+  setToggleModalBoxValue(data){
+        if(data){
+          this.setState({
+              toggleModalBoxValue : data
+          });
+        }
+  }
+  setParentModalBoxDataProps(data){
+        if(data){
+          this.setState({
+              parentModalBoxData : data
+          });
+        }
   }
   render() {
     if(this.state.userAccessToken && this.state.userAccessToken != ""){
@@ -28,10 +47,11 @@ class App extends React.Component {
               <Header />
               <main id="content" className="pt-5 p-1">
                   <Switch>
-                    <Route path='/users' component={RecordsList} />
-                    <Route path='/settings' component={Settings} />
-                    <Route path='/profile' component={Profile} />
+                    <Route path='/students' component={()=><StudentSection   setParentModalBoxDataProps={this.setParentModalBoxDataProps} setToggleModalBoxValue={this.setToggleModalBoxValue} />} />
+                    <Route path='/teachers' component={TeacherSection} />
+                    <Route path='/courses' component={CoursesSection} />
                   </Switch>
+                  <ModalBox parentModalBoxDataProps={this.state.parentModalBoxData} toggleModalBox={this.state.toggleModalBoxValue} />
               </main>
               <Footer />
             </div>

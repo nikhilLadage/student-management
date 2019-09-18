@@ -24,7 +24,7 @@ class Header extends Component {
     render() {
         return (
             <MDBNavbar className="flexible-navbar" light expand="md" scrolling>
-                <Link to="/users" activeClassName="activeClass">
+                <Link to="/dashboard" activeClassName="activeClass">
                       <MDBNavbarBrand>
                           <strong></strong>
                       </MDBNavbarBrand>

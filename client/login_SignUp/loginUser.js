@@ -15,7 +15,7 @@ import { validateFormData } from './loginHelpers';
 import { useAlert } from 'react-alert';
 import axios from 'axios';
 
-const Login = () => {
+const LoginUser = () => {
   const toasterAlert = useAlert();
   return <LoginForm toaster={toasterAlert} />;
 }
@@ -24,7 +24,8 @@ class LoginForm extends React.Component{
       super(props);
       this.state= {
         "userEmail": "",
-        "userPass": ""
+        "userPass": "",
+        "customSwitches": false
       };
   }
   handleChange(event){
@@ -55,14 +56,15 @@ class LoginForm extends React.Component{
           type: 'error'});
           return false;
       }else{
-        axios.post("https://reqres.in/api/login", {
-          "email": self.state.userEmail,
-          "password": self.state.userPass
+        axios.post("/getUserLoginAuthentication", {
+          "adminEmail": self.state.userEmail,
+          "adminPass": self.state.userPass,
+          "switchType": self.state.customSwitches
         }).then(function(result){
-          if(result && result != ""){
-              console.log(result);
+          if(result && result != "" && result.data.code == 200){
+              console.log(result.data.code);
               localStorage.setItem("userAccessToken", result.data.token);
-              window.location = "/home#/users";
+              window.location = "/home#/dashboard";
           }else{
             self.props.toaster.show("OOps! Something went wrong while login, please try again later.",{
             timeout: 2000, // custom timeout just for this one alert
@@ -80,7 +82,6 @@ class LoginForm extends React.Component{
       return false;
     }
   }
-
   render(){
     return (
       <MDBContainer>
@@ -89,8 +90,7 @@ class LoginForm extends React.Component{
             <MDBCard>
               <MDBCardBody>
                 <MDBCardHeader className="form-header blue-gradient rounded">
-                  <h3 className="my-3 text-white text-center">
-                    <MDBIcon icon="lock" /> Login
+                  <h3 className="my-3 text-white text-center">Login
                   </h3>
                 </MDBCardHeader>
                 <form>
@@ -116,7 +116,34 @@ class LoginForm extends React.Component{
                       onChange={this.handleChange.bind(this)}
                     />
                   </div>
-
+                <MDBContainer>
+                    <p className="text-muted text-center">
+                        Login as
+                    </p>
+                </MDBContainer>
+                <MDBRow>
+                    <MDBCol size="5">
+                        <label className='float-right text-muted'>
+                          Teacher
+                        </label>
+                    </MDBCol>
+                    <MDBCol size="7">
+                        <div className='custom-control custom-switch'>
+                            <input
+                              type='checkbox'
+                              className='custom-control-input'
+                              id='customSwitches'
+                              name="customSwitches"
+                              checked={this.state.customSwitches}
+                              onChange={(event)=>this.setState({"customSwitches": this.state.customSwitches == false ? true : false})}
+                              readOnly
+                            />
+                            <label className='custom-control-label pl-4 text-muted' htmlFor='customSwitches'>
+                              Student
+                            </label>
+                        </div>
+                    </MDBCol>
+                </MDBRow>
                 <div className="text-center mt-4">
                   <MDBBtn
                     color="cyan"
@@ -126,11 +153,6 @@ class LoginForm extends React.Component{
                   >
                     Let Me In
                   </MDBBtn>
-                </div>
-                <div className="container text-center">
-                    <div className="font-weight-light">
-                      <p>Not a member ? <a href="/signUp">Sign Up</a></p>
-                    </div>
                 </div>
                 </form>
               </MDBCardBody>
@@ -142,4 +164,4 @@ class LoginForm extends React.Component{
   }
 };
 
-export default Login;
+export default LoginUser;

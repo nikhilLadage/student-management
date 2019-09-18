@@ -21,22 +21,28 @@ class SideBar extends React.Component {
                     </MDBNavbarBrand>
               </Link>
               <MDBListGroup className="list-group-flush">
-                  <Link to="/users" activeClassName="activeClass">
+                  <Link to="/dashboard" activeClassName="activeClass">
                       <MDBListGroupItem>
-                          <MDBIcon icon="th-list" className="mr-3"/>
-                          Records List
+                          <MDBIcon icon="tachometer-alt" className="mr-3"/>
+                          Dashboard
                       </MDBListGroupItem>
                   </Link>
-                  <Link to="/profile" activeClassName="activeClass">
+                  <Link to="/teachers" activeClassName="activeClass">
                       <MDBListGroupItem>
-                          <MDBIcon icon="user" className="mr-3"/>
-                          Profile
+                          <MDBIcon icon="chalkboard-teacher" className="mr-3"/>
+                          Teacher Section
                       </MDBListGroupItem>
                   </Link>
-                  <Link to="/settings" activeClassName="activeClass">
+                  <Link to="/students" activeClassName="activeClass">
                       <MDBListGroupItem>
-                          <MDBIcon icon="cog" className="mr-3"/>
-                          Settings
+                          <MDBIcon icon="users" className="mr-3"/>
+                          Student Section
+                      </MDBListGroupItem>
+                  </Link>
+                  <Link to="/courses" activeClassName="activeClass">
+                      <MDBListGroupItem>
+                          <MDBIcon icon="clipboard-list" className="mr-3"/>
+                          Course Section
                       </MDBListGroupItem>
                   </Link>
                   <Link to="/" onClick={(event)=>{this.handleLogout(event)}} activeClassName="activeClass">
